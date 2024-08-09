@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, TextInput, Alert } from "react-native";
 import React, { useState } from "react";
 import InputBox from "../../components/Forms/InputBox";
 import SubmitButton from "../../components/Forms/SubmitButton";
+import axios from "axios";
 
 const Register = ({ navigation }) => {
   //states
@@ -12,7 +13,7 @@ const Register = ({ navigation }) => {
 
   //function
   //Button function
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     try {
       setLoading(true);
       if (!name || !email || !password) {
@@ -21,8 +22,14 @@ const Register = ({ navigation }) => {
         return;
       }
       setLoading(false);
-      console.log("Register Data =>", { name, email, password });
+      const { data } = await axios.post(
+        "http://192.168.1.8:8080/api/v1/auth/register",
+        { name, email, password }
+      );
+      alert(data && data.message);
+      console.log("Register Data ==>", { name, email, password });
     } catch (error) {
+      alert(error.response.data.message);
       setLoading(false);
       console.log(error);
     }
@@ -68,7 +75,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "#e1d5c9",
+    backgroundColor: "pink",
   },
   pageTitle: {
     fontSize: 40,

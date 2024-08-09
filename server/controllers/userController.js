@@ -22,7 +22,7 @@ const registerController = async (req, res) => {
     if (!password || password.length < 6) {
       return res.status(400).send({
         success: false,
-        message: "password is required and 6 haracter long",
+        message: "password is required and 6 character long",
       });
     }
     //existing user check
@@ -58,6 +58,7 @@ const registerController = async (req, res) => {
   }
 };
 
+//login 
 const loginController = async (req, res) => {
   try {
     const { email, password } = req.body;

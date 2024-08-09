@@ -2,6 +2,8 @@ import { View, Text, StyleSheet, TextInput, Alert } from "react-native";
 import React, { useState } from "react";
 import InputBox from "../../components/Forms/InputBox";
 import SubmitButton from "../../components/Forms/SubmitButton";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 
 const Login = ({ navigation }) => {
   //states
@@ -11,7 +13,7 @@ const Login = ({ navigation }) => {
 
   //function
   //Button function
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     try {
       setLoading(true);
       if (!email || !password) {
@@ -20,12 +22,27 @@ const Login = ({ navigation }) => {
         return;
       }
       setLoading(false);
-      console.log("Login Data =>", { email, password });
+      const { data } = await axios.post(
+        "http://192.168.1.8:8080/api/v1/auth/login",
+        { email, password }
+      );
+      await AsyncStorage.setItem("@auth", JSON.stringify(data));
+      alert(data && data.message);
+      console.log("Login Data ==>", { email, password });
     } catch (error) {
+      alert(error.response.data.message);
       setLoading(false);
       console.log(error);
     }
   };
+
+  //temp function to check local storage data
+
+  const getLocalStorageData = async () => {
+    let data = await AsyncStorage.getItem("@auth");
+    console.log("Local storage data ==>", data);
+  };
+  getLocalStorageData();
 
   return (
     <View style={styles.container}>
@@ -69,7 +86,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "#e1d5c9",
+    backgroundColor: "pink",
   },
   pageTitle: {
     fontSize: 40,
