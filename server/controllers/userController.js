@@ -1,5 +1,6 @@
 const { hashPassword, comparePassword } = require("../helpers/authHelper");
 const userModel = require("../models/userModel");
+const JWT = require("jsonwebtoken");
 
 //REGISTER controller function
 const registerController = async (req, res) => {
@@ -87,12 +88,18 @@ const loginController = async (req, res) => {
       });
     }
 
+    // TOKEN JWT
+    const token = await JWT.sign({ _id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+
     //undefined password because it is showing when we hit API to hide it
 
     user.password = undefined;
     res.status(200).send({
       success: true,
       message: "login successfully",
+      token,
       user,
     });
   } catch (error) {
