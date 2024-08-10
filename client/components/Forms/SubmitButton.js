@@ -5,7 +5,7 @@ const SubmitButton = ({ handleSubmit, btnTitle, loading }) => {
   return (
     <TouchableOpacity style={styles.submitBtn} onPress={handleSubmit}>
       <Text style={styles.btnText}>
-        {loading ? "Please wait... " : btnTitle}
+        {loading ? "Please Wait..." : btnTitle}
       </Text>
     </TouchableOpacity>
   );

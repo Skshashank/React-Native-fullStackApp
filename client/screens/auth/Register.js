@@ -5,7 +5,7 @@ import SubmitButton from "../../components/Forms/SubmitButton";
 import axios from "axios";
 
 const Register = ({ navigation }) => {
-  //states
+  // states
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,16 +17,18 @@ const Register = ({ navigation }) => {
     try {
       setLoading(true);
       if (!name || !email || !password) {
-        Alert.alert("Please fill all the fields");
+        Alert.alert("Please Fill All Fields");
         setLoading(false);
         return;
       }
       setLoading(false);
-      const { data } = await axios.post(
-        "http://192.168.1.8:8080/api/v1/auth/register",
-        { name, email, password }
-      );
+      const { data } = await axios.post("/auth/register", {
+        name,
+        email,
+        password,
+      });
       alert(data && data.message);
+      navigation.navigate("Login");
       console.log("Register Data ==>", { name, email, password });
     } catch (error) {
       alert(error.response.data.message);
