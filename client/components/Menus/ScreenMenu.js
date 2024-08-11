@@ -20,7 +20,9 @@ const ScreenMenu = () => {
           <Stack.Screen
             name="Home"
             component={Home}
-            options={{ headerShown: false }}
+            options={{
+              title: "Full Stack APP",
+            }}
           />
         </>
       ) : (

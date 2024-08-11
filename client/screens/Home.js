@@ -8,7 +8,6 @@ const Home = () => {
   const [state] = useContext(AuthContext);
   return (
     <View style={styles.container}>
-      <Text>Home Sweet Home </Text>
       <Text>{JSON.stringify(state, null, 4)}</Text>
       <FooterMenu />
     </View>
