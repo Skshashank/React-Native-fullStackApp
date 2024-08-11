@@ -20,7 +20,7 @@ const HeaderMenu = () => {
       <TouchableOpacity onPress={handleLogout}>
         <FontAwesome5
           name="sign-out-alt"
-          color={"red"}
+          color="red"
           style={styles.iconStyle}
         />
       </TouchableOpacity>
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     marginBottom: 3,
     alignSelf: "center",
     fontSize: 25,
-    color: "blue",
+    color: "red",
   },
 });
 
