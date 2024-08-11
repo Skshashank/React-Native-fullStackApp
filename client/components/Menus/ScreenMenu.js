@@ -5,6 +5,7 @@ import Home from "@/screens/Home";
 import Register from "@/screens/auth/Register";
 import Login from "@/screens/auth/Login";
 import { AuthContext } from "@/context/authContext";
+import HeaderMenu from "./HeaderMenu";
 
 const ScreenMenu = () => {
   // global state
@@ -22,6 +23,7 @@ const ScreenMenu = () => {
             component={Home}
             options={{
               title: "Full Stack APP",
+              headerRight: () => <HeaderMenu />,
             }}
           />
         </>
