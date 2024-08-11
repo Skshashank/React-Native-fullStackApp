@@ -27,6 +27,7 @@ const Login = ({ navigation }) => {
       }
       setLoading(false);
       const { data } = await axios.post("/auth/login", { email, password });
+      setState(data);
       await AsyncStorage.setItem("@auth", JSON.stringify(data));
       alert(data && data.message);
       navigation.navigate("Home");
